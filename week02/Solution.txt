@@ -1,0 +1,82 @@
+public class Solution {
+  //350. 两个数组的交集 II
+    public int[] intersect(int[] nums1, int[] nums2) {
+        if (nums1.length>nums2.length) {
+            return intersect(nums2,nums1);
+        }
+
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int num:nums1) {
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+
+        int[] res = new int[nums1.length];
+        int index = 0;
+        for(int i = 0;i<nums2.length;i++) {
+            int count = map.getOrDefault(nums2[i],0);
+            if(count>0) {
+                res[index++] = nums2[i];
+                count--;
+                if(count>0){
+                    map.put(nums2[i],count);
+                }else {
+                    map.remove(nums2[i]);
+                }
+            }
+        }
+        return Arrays.copyOfRange(res,0,index);
+    }
+	
+	   //59 滑动窗口的最大值
+	    public int[] maxSlidingWindow(int[] nums, int k) {
+        if(nums.length == 0 || k == 0) return new int[0];
+        Deque<Integer> deque = new LinkedList<>();
+        for (int i = 0; i< k ;i++) {
+            while(!deque.isEmpty() && deque.peekLast()<nums[i]){
+                deque.removeLast();
+            }
+            deque.addLast(nums[i]);
+        }
+
+        int[] res = new int[nums.length - k + 1];
+        res[0] = deque.peekFirst();
+        for (int i = k; i<nums.length; i++) {
+            if(deque.peekFirst() == nums[i-k]){
+                deque.removeFirst();
+            }
+           // deque.addLast(nums[i]);
+            while(!deque.isEmpty() && deque.peekLast()<nums[i]){
+                deque.removeLast();
+            }
+
+            deque.addLast(nums[i]);
+            res[i - k + 1] = deque.peekFirst();
+        }
+        return res;
+    }
+	
+	
+	//412. Fizz Buzz
+	 public List<String> fizzBuzz(int n) {
+        List<String> res = new ArrayList<>();
+ 
+        for (int i = 1;i<=n; i++) {
+            String sb = "";
+            if(i%3==0) {
+                sb+="Fizz";
+            }
+            if(i%5==0) {
+                sb+="Buzz";
+            }
+            if("".equals(sb)) {
+                sb+=String.valueOf(i);
+            }
+            res.add(sb);
+        }
+        return res;
+    }
+	
+	
+	
+	
+}
