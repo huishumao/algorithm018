@@ -14,3 +14,32 @@ class Solution {
         return i== A.length-1;
     }
 }
+
+//买卖股票最佳时机
+public int maxProfit(int[] prices) {
+        int maxMoney = 0;
+        for (int i = 1; i<prices.length; i++) {
+            maxMoney += Math.max(0,prices[i] - prices[i-1]);
+        }
+        return maxMoney;
+    }
+
+
+//Pow(x,n)
+public double myPow(double x, int n) {
+        double res = 1;
+        long p = n;
+        if(p<0) {
+            x = 1/x;
+            p = -p;
+        }
+        while (p>0) {
+            if (p%2 == 1) res*=x;
+            x*=x;
+            p/=2;
+        }
+        return res;
+    }
+
+
+//子集
