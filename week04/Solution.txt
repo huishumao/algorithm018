@@ -78,8 +78,26 @@ public int maxProfit(int[] prices) {
         return maxMoney;
  }
  
- 
- 
+ //455. 分发饼干
+ public int findContentChildren(int[] g, int[] s) {
+        if (g == null || g.length == 0 || s ==null || s.length == 0) return 0;
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        int res = 0;
+        int i = 0;
+        int j = 0;
+        while (i < g.length && j<s.length) {
+            if (g[i] <= s[j]) {
+                res++;
+                i++;
+                j++;
+            }else {
+                j++;
+            }
+        }
+        return res;
+    }
  
  
  
